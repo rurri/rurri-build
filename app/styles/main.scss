@@ -13,6 +13,12 @@ a:focus {
   text-decoration: underline;
 }
 
+.post-summary a:hover,.post-summary a:focus {
+  text-decoration: none;
+}
+
+
+
 h3 {
   font-weight: 100;
 }
@@ -37,6 +43,15 @@ h3 {
   background: rgb(61, 79, 93);
   color: #fff;
 }
+
+.sidebar a:hover, .sidebar a:focus {
+  text-decoration: none;
+}
+
+.sidebar a {
+  color: #fff;
+}
+
 
 .brand-title,
 .brand-tagline {
@@ -103,7 +118,6 @@ h3 {
   margin-left: 1em;
 }
 .post-description {
-  font-family: Georgia, "Cambria", serif;
   color: #444;
   line-height: 1.8em;
 }
@@ -120,16 +134,16 @@ h3 {
   background: #999;
   font-size: 80%;
 }
-.post-category-design {
+.post-category-Technical {
   background: #5aba59;
 }
-.post-category-pure {
+.post-category-Travel {
   background: #4d85d1;
 }
-.post-category-yui {
+.post-category-Piloting {
   background: #8156a7;
 }
-.post-category-js {
+.post-category-Photo {
   background: #df2d4f;
 }
 

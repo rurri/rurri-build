@@ -18,6 +18,9 @@ module.exports = function (grunt) {
     useminPrepare: 'grunt-usemin'
   });
 
+  require('load-grunt-tasks')(grunt);
+
+
   // Configurable paths
   var config = {
     app: 'app',
@@ -45,7 +48,12 @@ module.exports = function (grunt) {
         tasks: ['babel:test', 'test:watch']
       },
       gruntfile: {
-        files: ['Gruntfile.js']
+        files: ['Gruntfile.js'],
+        tasks: ['build']
+      },
+      metalsmith: {
+        files: ['<%= config.app %>/{,*/}*.html','content/{,*/}*.md','content/{,*/}*.html'],
+        tasks: 'metalsmith'
       },
       sass: {
         files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
@@ -69,6 +77,7 @@ module.exports = function (grunt) {
         options: {
           files: [
             '<%= config.app %>/{,*/}*.html',
+            '.tmp/content/{,*/}*.html',
             '.tmp/styles/{,*/}*.css',
             '<%= config.app %>/images/{,*/}*',
             '.tmp/scripts/{,*/}*.js'
@@ -77,7 +86,8 @@ module.exports = function (grunt) {
           server: {
             baseDir: ['.tmp', config.app],
             routes: {
-              '/bower_components': './bower_components'
+              '/bower_components': './bower_components',
+              '/' : '.tmp/content'
             }
           }
         }
@@ -235,7 +245,7 @@ module.exports = function (grunt) {
       options: {
         dest: '<%= config.dist %>'
       },
-      html: '<%= config.app %>/index.html'
+      html: '<%= config.app %>/layouts/*.html'
     },
 
     // Performs rewrites based on rev and the useminPrepare configuration
@@ -247,7 +257,7 @@ module.exports = function (grunt) {
           '<%= config.dist %>/styles'
         ]
       },
-      html: ['<%= config.dist %>/{,*/}*.html'],
+      html: ['<%= config.dist %>/{,*/}{,*/}{,*/}*.html'],
       css: ['<%= config.dist %>/styles/{,*/}*.css']
     },
 
@@ -279,8 +289,9 @@ module.exports = function (grunt) {
         options: {
           collapseBooleanAttributes: true,
           collapseWhitespace: true,
-          conservativeCollapse: true,
+          conservativeCollapse: false,
           removeAttributeQuotes: true,
+          removeComments: true,
           removeCommentsFromCDATA: true,
           removeEmptyAttributes: true,
           removeOptionalTags: true,
@@ -291,7 +302,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= config.dist %>',
-          src: '{,*/}*.html',
+          src: '{,*/}{,*/}{,*/}*.html',
           dest: '<%= config.dist %>'
         }]
       }
@@ -337,7 +348,17 @@ module.exports = function (grunt) {
             '{,*/}*.html',
             'styles/fonts/{,*/}*.*'
           ]
-        }]
+        },
+          {
+            expand: true,
+            dot: true,
+            cwd: '.tmp/content',
+            dest: '<%= config.dist %>/content',
+            src: [
+              '{,*/}*.html'
+            ]
+          }
+        ]
       }
     },
 
@@ -345,7 +366,7 @@ module.exports = function (grunt) {
     concurrent: {
       server: [
         'babel:dist',
-        'sass'
+        'sass',
       ],
       test: [
         'babel'
@@ -354,9 +375,94 @@ module.exports = function (grunt) {
         'babel',
         'sass',
         'imagemin',
-        'svgmin'
+        'svgmin',
       ]
-    }
+    },
+
+    metalsmith: {
+      articles: {
+        options: {
+          metadata: {
+            hello: 'world'
+          },
+          plugins: {
+            "metalsmith-filepath": {
+              "absolute": false,
+              "permalinks": false
+            },
+            "metalsmith-paths": {
+              "property": "paths"
+            },
+            "metalsmith-markdown-remarkable": {
+              "typographer": true,
+            },
+            "metalsmith-excerpts": {
+            },
+
+            'metalsmith-collections' : {
+              articles: {
+                pattern: 'articles/*',
+                sortBy: "posted",
+                reverse: true
+              },
+              last5articles: {
+                pattern: 'articles/*',
+                sortBy: 'posted',
+                reverse: true,
+                limit: 5
+              }
+            },
+
+            'metalsmith-markdown' : {
+            },
+            "metalsmith-in-place": {
+              "engine": "handlebars",
+              "partials": "partials"
+            },
+
+            "metalsmith-layouts": {
+              "engine": "handlebars",
+              "default" : "layout.html",
+              "directory": "app/layouts",
+              "partials": "app/partials"
+            },
+            'metalsmith-writemetadata' : {
+              pattern: ['**/*.md', '**/*.html'],
+              bufferencoding: 'utf8',
+              ignorekeys: ['stats', 'mode', 'next.next', 'collection'],
+              childIgnorekeys: ['next', 'previous'],
+
+              collections: {
+                articles: {
+                  output: {
+                    path: 'articles.json',
+                    asObject: true,
+                    metadata: {
+                      "type": "list"
+                    }
+                  },
+                  ignorekeys: ['contents', 'next', 'previous', 'collection', 'mode', 'stats']
+                },
+                last5articles: {
+                  output: {
+                    path: 'last5articles.json',
+                    asObject: true,
+                    metadata: {
+                      "type": "list"
+                    }
+                  },
+                  ignorekeys: ['next', 'previous', 'collection', 'mode', 'stats']
+                }
+              }
+
+            }
+          }
+        },
+        src: 'content',
+        dest: '.tmp/content'
+      }
+    },
+
   });
 
 
@@ -369,6 +475,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'metalsmith',
       'concurrent:server',
       'postcss',
       'browserSync:livereload',
@@ -400,6 +507,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
+    'metalsmith',
     'concurrent:dist',
     'postcss',
     'concat',

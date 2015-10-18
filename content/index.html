@@ -1,0 +1,27 @@
+<!-- A wrapper for all the blog posts -->
+<div class="posts">
+  {{#each collections.articles}}
+
+  <!-- A single blog post -->
+  <div class="post-summary">
+
+    <a href="{{paths.href}}{{paths.name}}.html">
+      <section class="post">
+        <header class="post-header">
+
+          <h2 class="post-title">{{title}}</h2>
+
+          <p class="post-meta">
+            <span class="post-category post-category-{{track}}">{{track}}</span>
+          </p>
+        </header>
+
+        <div class="post-description">
+          {{{excerpt}}}
+        </div>
+      </section>
+    </a>
+  </div>
+  {{/each}}
+
+</div>

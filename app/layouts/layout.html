@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <title>rurri pure</title>
+  <!--<meta name="description" content="">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+  <!--<link rel="shortcut icon" href="/favicon.ico">-->
+  <!--<link rel="apple-touch-icon" href="/apple-touch-icon.png">-->
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css(.) /styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="/bower_components/pure/pure.css" />
+  <!-- endbower -->
+  <link rel="stylesheet" href="/bower_components/pure/grids-responsive.css">
+
+  <!-- endbuild -->
+  <!-- build:css(.tmp) /styles/main.css -->
+
+  <link rel="stylesheet" href="/styles/main.css">
+  <!-- endbuild -->
+</head>
+<body>
+
+<div id="layout" class="pure-g">
+  <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+      <a href="/"><h1 class="brand-title">Jason</h1></a>
+      <h2 class="brand-tagline">Developer, Traveler, Pilot, Photographer</h2>
+
+      <nav class="nav">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a class="pure-button" href="http://github.com/rurri"><i class="fa fa-github"></i> Github</a>
+          </li>
+          <li class="nav-item">
+            <a class="pure-button" href="http://twitter.com/dracocat">Twitter</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="content pure-u-1 pure-u-md-3-4">
+    <div>
+      <h1>{{title}}</h1>
+      {{{contents}}}
+  </div>
+</div>
+
+
+<!-- build:js /scripts/main.js -->
+<!--<script src="scripts/main.js"></script>-->
+<!-- endbuild -->
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<!--<script>-->
+<!--(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=-->
+<!--function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;-->
+<!--e=o.createElement(i);r=o.getElementsByTagName(i)[0];-->
+<!--e.src='https://www.google-analytics.com/analytics.js';-->
+<!--r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));-->
+<!--ga('create','UA-XXXXX-X');ga('send','pageview');-->
+<!--</script>-->
+</body>
+</html>
