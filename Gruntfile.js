@@ -353,7 +353,7 @@ module.exports = function (grunt) {
             expand: true,
             dot: true,
             cwd: '.tmp/content',
-            dest: '<%= config.dist %>/content',
+            dest: '<%= config.dist %>',
             src: [
               '{,*/}*.html'
             ]
@@ -462,7 +462,25 @@ module.exports = function (grunt) {
         dest: '.tmp/content'
       }
     },
+    aws_s3 : {
+      dist: {
+        options: {
+          bucket : 'rurri.com',
+          maxRetries : 3,
+          uploadConcurrency : 10,
+          downloadConcurrency : 10,
+          copyConcurrency : 10,
+          differential : true,
+          displayChangesOnly : true,
+          progress : 'progressBar',
 
+        },
+        files: [
+          {expand: true, cwd: '<%= config.dist %>', src: ['**'], dest: '/', action:'upload'},
+          {cwd: '<%= config.dist %>', src: ['**'], dest: '/', action:'delete'}
+        ]
+      }
+    }
   });
 
 
@@ -524,4 +542,9 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.registerTask('deploy', [
+    'aws_s3'
+  ]);
+
 };
