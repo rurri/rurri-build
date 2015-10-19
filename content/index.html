@@ -9,10 +9,23 @@
       <section class="post">
         <header class="post-header">
 
-          <h2 class="post-title">{{title}}</h2>
+          {{#if thumbnail}}
+            <div class="thumbnail pure-u-1 pure-u-md-5-24">
+              <img itemprop="image" class="pure-img" src="/images/{{thumbnail}}">
+            </div>
+            <div class="pure-u-1 pure-u-md-18-24">
+              <h2 class="post-title">{{title}}</h2>
+              <!--<span class="post-category post-category-{{track}}">{{track}}</span>-->
+
+            </div>
+
+          {{else}}
+              <h2 class="post-title">{{title}}</h2>
+              <!--<span class="post-category post-category-{{track}}">{{track}}</span>-->
+          {{/if}}
+
 
           <p class="post-meta">
-            <span class="post-category post-category-{{track}}">{{track}}</span>
           </p>
         </header>
 

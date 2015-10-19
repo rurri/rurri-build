@@ -80,6 +80,7 @@ module.exports = function (grunt) {
             '.tmp/content/{,*/}*.html',
             '.tmp/styles/{,*/}*.css',
             '<%= config.app %>/images/{,*/}*',
+            '.tmp/images/{,*/}*',
             '.tmp/scripts/{,*/}*.js'
           ],
           port: 9000,
@@ -267,6 +268,16 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= config.app %>/images',
+          src: '{,*/}*.{gif,jpeg,jpg,png}',
+          dest: '<%= config.dist %>/images'
+        },{
+          expand: true,
+          cwd: 'content/images',
+          src: '{,*/}*.{gif,jpeg,jpg,png}',
+          dest: '<%= config.dist %>/images'
+        },{
+          expand: true,
+          cwd: '.tmp/images',
           src: '{,*/}*.{gif,jpeg,jpg,png}',
           dest: '<%= config.dist %>/images'
         }]
@@ -495,7 +506,13 @@ module.exports = function (grunt) {
           Items: ['/index.html', '/articles/*.html']
         }
       }
-    }
+    },
+    curl: {
+      'grab-avatar': {
+        src: 'http://graph.facebook.com/v2.3/533081609/picture?redirect=true&width=300&height=300',
+        dest: '.tmp/images/avatar.jpg'
+      }
+    },
   });
 
 
@@ -509,6 +526,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'metalsmith',
+      'curl:grab-avatar',
       'concurrent:server',
       'postcss',
       'browserSync:livereload',
@@ -541,6 +559,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'metalsmith',
+    'curl:grab-avatar',
     'concurrent:dist',
     'postcss',
     'concat',

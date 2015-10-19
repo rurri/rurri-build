@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{#if title}}{{title}}{{else}}Jason - Developer, Traveler, Pilot, Photographer{{/if}}</title>
+  <title>{{title}}</title>
   <!--<meta name="description" content="">-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -28,9 +28,6 @@
 <div id="layout" class="pure-g">
   <div class="sidebar pure-u-1 pure-u-md-1-4">
     <div class="header">
-      <!--<div class="pure-u-1">-->
-        <!--<img class="pure-img" src="/images/avatar.jpg">-->
-      <!--</div>-->
       <a href="/"><h1 class="brand-title"> Jason</h1></a>
       <h2 class="brand-tagline">Developer, Traveler, Pilot, Photographer</h2>
 
@@ -51,26 +48,41 @@
     </div>
   </div>
 
-  <div class="content pure-u-1 pure-u-md-3-4">
-    <div>
-      <h1>{{title}}</h1>
-      {{{contents}}}
+  <div class="article content pure-u-1 pure-u-md-3-4">
+    <div itemscope itemtype="http://schema.org/NewsArticle">
+      {{#if thumbnail}}
+        <div class="thumbnail pure-u-1 pure-u-md-5-24">
+          <img itemprop="image" class="pure-img" src="/images/{{thumbnail}}">
+        </div>
+        <div class="pure-u-1 pure-u-md-18-24">
+          <h1 itemprop="headline">{{title}}</h1>
+        </div>
+
+      {{else}}
+        <h1 itemprop="headline">{{title}}</h1>
+      {{/if}}
+
+
+      <meta itemprop="datePublished" content="{{posted}}"/>
+      <div itemprop="articleBody">
+        {{{contents}}}
+      </div>
+    </div>
   </div>
-</div>
 
 
-<!-- build:js /scripts/main.js -->
-<!--<script src="scripts/main.js"></script>-->
-<!-- endbuild -->
+  <!-- build:js /scripts/main.js -->
+  <!--<script src="scripts/main.js"></script>-->
+  <!-- endbuild -->
 
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-<script>
-(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-e.src='https://www.google-analytics.com/analytics.js';
-r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-ga('create','UA-29653765-1');ga('send','pageview');
-</script>
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+  <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='https://www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-29653765-1');ga('send','pageview');
+  </script>
 </body>
 </html>

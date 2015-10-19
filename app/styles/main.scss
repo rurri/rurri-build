@@ -74,6 +74,7 @@ h3 {
   display: inline-block;
   *display: inline;
   zoom: 1;
+  margin-right: 5px;
 }
 .nav-item a {
   background: transparent;
@@ -119,7 +120,7 @@ h3 {
 }
 .post-description {
   color: #444;
-  line-height: 1.8em;
+  line-height: 1.4em;
 }
 .post-meta {
   color: #999;
@@ -186,4 +187,8 @@ h3 {
     top: 0;
     bottom: 0;
   }
+}
+
+.article .thumbnail, .post-header .thumbnail {
+  margin: 15px;
 }
