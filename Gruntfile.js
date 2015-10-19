@@ -480,6 +480,21 @@ module.exports = function (grunt) {
           {cwd: '<%= config.dist %>', src: ['**'], dest: '/', action:'delete'}
         ]
       }
+    },
+    cloudfront: {
+      options: {
+        region: 'us-east-1', // your AWS region
+        distributionId: "E148L1W4MDDT8U", // DistributionID where files are stored
+        listInvalidations: true, // if you want to see the status of invalidations
+        listDistributions: true, // if you want to see your distributions list in the console
+      },
+      dist: {
+        CallerReference: Date.now().toString(),
+        Paths: {
+          Quantity: 2,
+          Items: ['/index.html', '/articles/*.html']
+        }
+      }
     }
   });
 
@@ -544,7 +559,8 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('deploy', [
-    'aws_s3'
+    'aws_s3',
+    'cloudfront'
   ]);
 
 };

@@ -169,7 +169,8 @@ Anything thrown will be caught by accounts, it will be caught and returned grace
 
 Alternatively you can create an object with the key `error` and return that object. Personally I would opt to the throw an exception, but this could just a personal preference.
 
-## Use Accounts.updateOrCreateUserFromExternalService ##
+## Use updateOrCreate helper function
+
 Accounts provides a nice helper method that you can drop right inside your login hook. The Accounts.updateOrCreateUserFromExternalService is again only documented [in the source](https://github.com/meteor/meteor/blob/devel/packages/accounts-base/accounts_server.js), but is quite handy for doing a lot of the legwork common to a lot of authentication services.
 
 You call this method with three parameters (serviceName, serviceData, options).
