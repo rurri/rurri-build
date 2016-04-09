@@ -3,6 +3,7 @@ title: "Creating a custom authentication service in Meteor "
 posted: 2015-06-16T14:53
 tags: [meteor, authentication]
 track: Technical
+thumbnail: meteor-key.jpg
 ---
 There are many reasons someone might need to create a custom authentication method in meteor. For our project it was the use of a custom CAS authentication server for which there was no available module since it was a completely custom fork of CAS.
 

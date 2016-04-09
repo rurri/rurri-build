@@ -481,14 +481,14 @@ module.exports = function (grunt) {
           uploadConcurrency : 10,
           downloadConcurrency : 10,
           copyConcurrency : 10,
-          differential : true,
+          differential : false,
           displayChangesOnly : true,
-          progress : 'progressBar',
+          progress : 'progressBar'
 
         },
         files: [
           {expand: true, cwd: '<%= config.dist %>', src: ['**'], dest: '/', action:'upload'},
-          {cwd: '<%= config.dist %>', src: ['**'], dest: '/', action:'delete'}
+          //{cwd: '<%= config.dist %>', src: ['**'], dest: '/', action:'delete'}
         ]
       }
     },
